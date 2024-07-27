@@ -1,0 +1,24 @@
+
+services:
+  elk:
+    container_name: elk-service
+    image: sebp/elk:latest
+    ports:
+      - "5601:5601"
+      - "9200:9200"
+      - "5044:5044"
+    networks:
+      - elkdriver
+    
+  nginx:
+    container_name: nginx-webserver
+    build: ./docker/builds/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - elkdriver
+
+networks:
+  elkdriver:
+    driver: bridge
